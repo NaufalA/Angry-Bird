@@ -30,7 +30,7 @@ public class TrailController : MonoBehaviour
     {
         _trails.Add(Instantiate(trail, targetBird.transform.position, Quaternion.identity));
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
 
         if (targetBird != null && targetBird.State != Bird.BirdState.HitSomething)
         {

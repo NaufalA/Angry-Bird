@@ -79,4 +79,6 @@ private float _minVelocity = 0.05f;
         rigidBody.velocity = velocity * speed * distance;
         OnBirdShot(this);
     }
+    
+    public virtual void OnTap() {}
 }
