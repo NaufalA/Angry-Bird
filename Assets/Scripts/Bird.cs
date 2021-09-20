@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bird : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Bird : MonoBehaviour
     private BirdState _state;
     private float _minVelocity = 0.05f;
     private bool _flagDestroy = false;
+    
+    public UnityAction OnBirdDestroyed = delegate {  };
 
     private void Start()
     {
@@ -38,6 +41,11 @@ public class Bird : MonoBehaviour
             _flagDestroy = true;
             StartCoroutine(DestroyAfter(2f));
         }
+    }
+
+    private void OnDestroy()
+    {
+        OnBirdDestroyed();
     }
 
     private IEnumerator DestroyAfter(float seconds)
