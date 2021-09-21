@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     public List<Enemy> enemies;
 
     private Bird _shotBird;
-    private bool _isGameEnded = false;
+    public static bool IsGameEnded;
 
     private void Awake()
     {
@@ -27,10 +27,14 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        IsGameEnded = false;
+        
         for (int i = 0; i < birds.Count; i++)
         {
             birds[i].OnBirdDestroyed += ChangeBird;
             birds[i].OnBirdShot += AssignTrail;
+
+            birds[i].transform.Translate(new Vector3((-i*0.8f)+1,0,0));
         }
 
         for (int i = 0; i < enemies.Count; i++)
@@ -53,7 +57,7 @@ public class GameController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (_isGameEnded == false)
+            if (IsGameEnded == false)
             {
                 if (Time.timeScale != 0f)
                 {
@@ -65,12 +69,13 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+        CheckGameEnd();
     }
 
     public void ChangeBird()
     {
         tapCollider.enabled = false;
-        if (_isGameEnded) return;
+        if (IsGameEnded) return;
         
         birds.RemoveAt(0);
 
@@ -79,7 +84,6 @@ public class GameController : MonoBehaviour
             slingShooter.InstantiateBird(birds[0]);
             _shotBird = birds[0];
         }
-        CheckGameEnd();
     }
 
     public void ReduceEnemy(GameObject destroyedEnemy)
@@ -123,8 +127,9 @@ public class GameController : MonoBehaviour
     
     public void SetGameOver(bool isWin)
     {
-        _isGameEnded = true;
+        IsGameEnded = true;
 
+        LevelSelect.Instance.UpdateLevel(isWin);
         pauseMenuController.EndGame(isWin);
     }
 }

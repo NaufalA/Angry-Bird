@@ -23,7 +23,7 @@ public class BirdOwl : Bird
         _blastCollider.isTrigger = true;
         _blastCollider.enabled = true;
 
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.05f);
         Destroy(gameObject);
     }
 

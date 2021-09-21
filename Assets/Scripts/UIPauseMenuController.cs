@@ -12,12 +12,14 @@ public class UIPauseMenuController : MonoBehaviour
     public Text statusInfo;
     public Button buttonResume;
     public Button buttonRestart;
+    public Button buttonChangeLevel;
     public Button buttonExit;
 
     private void Start()
     {
         buttonResume.onClick.AddListener(ResumeGame);
         buttonRestart.onClick.AddListener(RestartGame);
+        buttonChangeLevel.onClick.AddListener(ChangeLevel);
         buttonExit.onClick.AddListener(ExitToMenu);
         pauseMenuPanel.gameObject.SetActive(false);
     }
@@ -47,10 +49,16 @@ public class UIPauseMenuController : MonoBehaviour
 
     public void RestartGame()
     {
+        GameController.IsGameEnded = true;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void ChangeLevel()
+    {
+        SceneManager.LoadScene("LevelSelection");
+    }
+    
     private void ExitToMenu()
     {
         Application.Quit();

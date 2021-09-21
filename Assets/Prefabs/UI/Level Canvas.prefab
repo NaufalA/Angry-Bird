@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 8419855287478667784}
   - component: {fileID: 711295209373460690}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Level Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,6 +405,7 @@ MonoBehaviour:
   statusInfo: {fileID: 2066491965825206604}
   buttonResume: {fileID: 4573926688733132074}
   buttonRestart: {fileID: 5669864195354893306}
+  buttonChangeLevel: {fileID: 6116697719566464049}
   buttonExit: {fileID: 2517976205668509730}
 --- !u!1 &1930898216696545521
 GameObject:
