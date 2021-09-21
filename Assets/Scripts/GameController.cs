@@ -8,6 +8,9 @@ public class GameController : MonoBehaviour
     public SlingShooter slingShooter;
     public TrailController trailController;
     public BoxCollider2D tapCollider;
+
+    public GameObject birdContainer;
+    public GameObject enemyContainer;
     
     public List<Bird> birds;
     public List<Enemy> enemies;
@@ -15,9 +18,14 @@ public class GameController : MonoBehaviour
     private Bird _shotBird;
     private bool _isGameEnded = false;
 
+    private void Awake()
+    {
+        birds.AddRange(birdContainer.GetComponentsInChildren<Bird>());
+        enemies.AddRange(enemyContainer.GetComponentsInChildren<Enemy>());
+    }
+
     private void Start()
     {
-
         for (int i = 0; i < birds.Count; i++)
         {
             birds[i].OnBirdDestroyed += ChangeBird;
@@ -45,6 +53,7 @@ public class GameController : MonoBehaviour
         if (birds.Count > 0)
         {
             slingShooter.InstantiateBird(birds[0]);
+            _shotBird = birds[0];
         }
     }
 

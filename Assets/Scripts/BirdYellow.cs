@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YellowBird : Bird
+public class BirdYellow : Bird
 {
     public float boostForce = 100f;
     public bool hasBoost = false;
