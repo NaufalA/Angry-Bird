@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
 
     public GameObject birdContainer;
     public GameObject enemyContainer;
+    public UIPauseMenuController pauseMenuController;
     
     public List<Bird> birds;
     public List<Enemy> enemies;
@@ -34,13 +35,36 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].OnEnemyDestroyed += CheckGameEnd;
+            enemies[i].OnEnemyDestroyed += ReduceEnemy;
         }
         
         tapCollider.enabled = false;
         slingShooter.InstantiateBird(birds[0]);
         _shotBird = birds[0];
 
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            pauseMenuController.RestartGame();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (_isGameEnded == false)
+            {
+                if (Time.timeScale != 0f)
+                {
+                    pauseMenuController.PauseGame();
+                }
+                else
+                {
+                    pauseMenuController.ResumeGame();
+                }
+            }
+        }
     }
 
     public void ChangeBird()
@@ -55,9 +79,10 @@ public class GameController : MonoBehaviour
             slingShooter.InstantiateBird(birds[0]);
             _shotBird = birds[0];
         }
+        CheckGameEnd();
     }
 
-    public void CheckGameEnd(GameObject destroyedEnemy)
+    public void ReduceEnemy(GameObject destroyedEnemy)
     {
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -66,11 +91,18 @@ public class GameController : MonoBehaviour
                 enemies.RemoveAt(i);
                 break;
             }
-
-            if (enemies.Count == 0)
-            {
-                _isGameEnded = true;
-            }
+        }
+    }
+    
+    public void CheckGameEnd()
+    {
+        if (enemies.Count == 0)
+        {
+            SetGameOver(true);
+        }
+        else if (birds.Count == 0)
+        {
+            SetGameOver(false);
         }
     }
 
@@ -87,5 +119,12 @@ public class GameController : MonoBehaviour
         {
             _shotBird.OnTap();
         }
+    }
+    
+    public void SetGameOver(bool isWin)
+    {
+        _isGameEnded = true;
+
+        pauseMenuController.EndGame(isWin);
     }
 }

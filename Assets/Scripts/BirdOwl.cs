@@ -18,13 +18,12 @@ public class BirdOwl : Bird
 
     public IEnumerator Explode()
     {
-        Debug.Log("explode");
         _blastCollider = gameObject.AddComponent<CircleCollider2D>();
         _blastCollider.radius = blastRadius;
         _blastCollider.isTrigger = true;
         _blastCollider.enabled = true;
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.01f);
         Destroy(gameObject);
     }
 
@@ -32,7 +31,6 @@ public class BirdOwl : Bird
     {
         if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "Obstacle") return;
 
-        Debug.Log("boom");
         Vector2 direction = other.gameObject.transform.position - transform.position;
         other.gameObject.GetComponent<Rigidbody2D>().AddForce(direction * blastForce, ForceMode2D.Impulse);
     }
