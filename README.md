@@ -19,5 +19,5 @@ You can play the game by accessing the build version on the [releases page](http
 - Owl (Brown Bird) - Explosion
 
 ## Stuff changed or added
-- Add exploding bird
-- Add more levels and level selection feature
+- (23a0fc8) Add exploding bird
+- (71160b2) Add more levels and level selection feature
